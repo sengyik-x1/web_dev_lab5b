@@ -4,7 +4,7 @@ class User
 {
     private $conn;
 
-    public function __contructor($db)
+    public function __construct($db)
     {
         $this->conn = $db;
     }
@@ -16,7 +16,7 @@ class User
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("ssss", $matric, $name, $password, $role);
-            $result = $stmt->excecute();
+            $result = $stmt->execute();
             if ($result) {
                 return true;
             } else {
