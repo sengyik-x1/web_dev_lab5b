@@ -8,7 +8,8 @@ $db = $database->getConnection();
 $database->createUserTable();
 $user = new User($db);
 
-$user->createUser($_POST['matric'], $_POST['name'], $_POST['password'], $_POST['role']);    
+$user->createUser($_POST['matric'], $_POST['name'], trim($_POST['password']), $_POST['role']);    
+print_r($_POST['password']);
 $db->close();
 
 ?>

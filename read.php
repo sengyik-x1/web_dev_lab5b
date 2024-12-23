@@ -1,6 +1,12 @@
 <?php 
 include 'Database.php';
 include 'User.php';
+session_start();
+if(!isset($_SESSION['username'])){
+    header('Location: login.php');
+    exit();
+}
+
 
 $database = new Database();
 $db = $database->getConnection();
@@ -19,13 +25,16 @@ $users = $user->getUsers();
 
 </head>
 <body>
-    <table border="1" class="table table-bordered" style="width: 80%; margin: 0 auto; margin-top: 50px;">
+
+
+    <h1 style="text-align: center; margin-top:1em;">User List</h1>
+    <table border="1" class="table table-bordered" style="width: 70%; margin: 0 auto; margin-top: 50px;">
         
             <tr>
                 <th>Matric</th>
                 <th>Name</th>
                 <th>Level</th>
-                <th colspan="2">Action</th>
+                <th style="text-align: center;">Action</th>
             </tr>
         
 
@@ -38,8 +47,9 @@ $users = $user->getUsers();
                 <td><?php echo $row["matric"]; ?></td>
                 <td><?php echo $row["name"]; ?></td>
                 <td><?php echo $row["role"]; ?></td>
-                <td><a href="#" class="btn btn-info">Update</a></td>
-                <td><a href="" class="btn btn-danger">Delete</a></td>
+                <td class="text-center"><a href="updateUser.php?matric=<?php echo $row["matric"]; ?>" class="btn btn-info" >Update</a> &nbsp; &nbsp;
+                                        <a href="delete.php?matric=<?php echo $row['matric']; ?>" class="btn btn-danger">Delete</a>
+                </td>
             </tr>
     
 

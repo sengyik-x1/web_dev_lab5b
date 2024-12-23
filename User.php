@@ -11,11 +11,11 @@ class User
 
     public function createUser($matric, $name, $password, $role)
     {
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        $hased_password = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users (matric, name , password, role) VALUES (?,?,?,?)";
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
-            $stmt->bind_param("ssss", $matric, $name, $password, $role);
+            $stmt->bind_param("ssss", $matric, $name, $hased_password, $role);
             $result = $stmt->execute();
             if ($result) {
                 return true;
@@ -36,7 +36,7 @@ class User
 
     public function getUser($matric)
     {
-        $sql = "SELECT * FROM users WEHERE matric =?";
+        $sql = "SELECT * FROM users WHERE matric =?";
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("s", $matric);
@@ -52,10 +52,10 @@ class User
 
     public function updateUser($matric, $name, $role)
     {
-        $sql = "UPDATE users SET matric = ?, name = ?, role = ? WHERE matrci = ?";
+        $sql = "UPDATE users SET name = ?, role = ? WHERE matric = ?";
         $stmt = $this->conn->prepare($sql);
         if ($stmt) {
-            $stmt->bind_param("sss", $matric, $name, $role);
+            $stmt->bind_param("sss", $name, $role, $matric);
             $result = $stmt->execute();
             if ($result) {
                 return true;
