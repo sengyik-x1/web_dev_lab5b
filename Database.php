@@ -28,7 +28,7 @@ class Database{
         $sql = "CREATE TABLE IF NOT EXISTS users(
             matric VARCHAR (10) PRIMARY KEY,
             name VARCHAR (50) NOT NULL,
-            password VARCHAR (50) NOT NULL,
+            password VARCHAR (256) NOT NULL,
             role VARCHAR (10) NOT NULL );";
 
         $result = $this->conn->query($sql);
